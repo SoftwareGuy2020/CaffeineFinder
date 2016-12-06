@@ -1,7 +1,9 @@
 package edu.orangecoastcollege.cs273.caffeinefinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -15,6 +17,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+/**
+ * Controller for activity_caffeine_list.xml
+ * displays list of nearby caffeine souorces
+ */
 public class CaffeineListActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private DBHelper db;
@@ -44,8 +50,19 @@ public class CaffeineListActivity extends AppCompatActivity implements OnMapRead
     }
 
     /**
-     *
-     * @param googleMap
+     * Gets the selected location and passes it to CaffeineDetailsActivity
+     * @param view the view
+     */
+    public void viewLocationDetails(View view) {
+        Location location = (Location) view.getTag();
+        Intent detailsIntent = new Intent(this, CaffeineDetailsActivity.class);
+        detailsIntent.putExtra("Location", location);
+        startActivity(detailsIntent);
+    }
+
+    /**
+     * Readies map
+     * @param googleMap google map
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -59,7 +76,7 @@ public class CaffeineListActivity extends AppCompatActivity implements OnMapRead
         }
 
         LatLng currentPosition = new LatLng(33.671028, -117.911305);
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(currentPosition).zoom(14).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(currentPosition).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
     }

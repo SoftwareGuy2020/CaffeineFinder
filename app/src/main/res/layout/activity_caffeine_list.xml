@@ -10,7 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.orangecoastcollege.cs273.caffeinefinder.CaffeineListActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:onClick="viewLocationDetails">
 
     <fragment
 
